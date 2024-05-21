@@ -10,15 +10,15 @@ import { FormEvent } from "react"
 export function EmailForm() {
   async function submitForm(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
- 
+
     const formData = new FormData(event.currentTarget);
-    const requestObject = {};
+    const requestObject: { [key: string]: FormDataEntryValue } = {};
     formData.forEach((value, key) => requestObject[key] = value);
     const response = await fetch(`${process.env.NEXT_PUBLIC_QUOTES_BASE_URL}/api/request_quote`, {
       method: 'POST',
       body: JSON.stringify(requestObject),
     })
- 
+
     const data = await response.json();
 
     console.log(data);

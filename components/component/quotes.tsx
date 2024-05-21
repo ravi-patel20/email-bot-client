@@ -1,17 +1,17 @@
 'use client';
 
 import Link from "next/link"
-import { useEffect, useState } from "react"
+import { JSX, SVGProps, useEffect, useState } from "react"
 
 export function Quotes() {
-  const [quoteList, setQuoteList] = useState([]);
+  const [quoteList, setQuoteList] = useState<{name: string, url: string}[]>([]);
   useEffect(() => {
     fetch(`${process.env.NEXT_PUBLIC_QUOTES_BASE_URL}/api/quotes`, {
       method: 'GET',
     })
     .then((response) => response.json())
     .then((data) => setQuoteList(data.files))
- 
+
   }, []);
 
   return (
@@ -19,7 +19,7 @@ export function Quotes() {
       <h1 className="mb-8 text-3xl font-bold">Generated Quotes</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {
-          quoteList?.map((quote, index) => (
+          quoteList.map((quote, index) => (
             <Link
               className="group block rounded-lg border border-gray-200 overflow-hidden shadow-sm hover:shadow-md transition-shadow dark:border-gray-700 dark:border-gray-800"
               download
@@ -41,7 +41,7 @@ export function Quotes() {
   )
 }
 
-function DownloadIcon(props) {
+function DownloadIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
@@ -63,7 +63,7 @@ function DownloadIcon(props) {
 }
 
 
-function FileIcon(props) {
+function FileIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
